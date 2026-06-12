@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiker - P2P</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+</head>
+<body>
+
+    <div id="login-container" class="panel-container">
+        <h1>Spiker P2P</h1>
+        <h2>Ingresa tu Nickname</h2>
+        <div class="input-group">
+            <input type="text" id="username-input" placeholder="Tu nombre..." maxlength="15">
+            <button id="btn-login" class="btn-primary" style="margin-top: 10px;">Entrar</button>
+        </div>
+    </div>
+
+    <div id="lobby-container" class="panel-container hidden">
+        <h1>Spiker P2P</h1>
+        <p class="subtitle" id="welcome-text">Salas Públicas en Tiempo Real</p>
+        <div class="lobby-panels">
+            <div class="panel">
+                <h2>Crear Sala</h2>
+                <div class="input-group">
+                    <label>Nombre de la sala:</label>
+                    <input type="text" id="room-name" placeholder="Ej: Sala de Prueba" value="Picadito Volley">
+                </div>
+                <input type="hidden" id="my-id" readonly>
+                <button id="btn-host" class="btn-primary" style="background-color: #2980b9; margin-bottom: 10px;">Crear Sala</button>
+                <div style="color: #2ecc71; font-size: 0.9rem; text-align: center;" id="host-status"></div>
+            </div>
+            <div class="panel">
+                <h2>Lista de Salas</h2>
+                <div class="room-list-header">
+                    <span>Nombre de Sala</span>
+                    <span>Acción</span>
+                </div>
+                <ul id="room-list">
+                    <li style="color: #888; text-align: center; padding: 10px;">Cargando salas...</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-container" class="hidden">
+        
+        <div id="inner-lobby" class="inner-lobby-overlay">
+            <div class="lobby-header">
+                <h2 id="room-title-display">Sala</h2>
+                <div class="lobby-controls">
+                    <button id="btn-start-match" class="btn-primary hidden">▶ Empezar Partido</button>
+                    <button id="btn-auto">Auto</button>
+                    <button id="btn-rand">Rand</button>
+                    <button id="btn-reset">Reset</button>
+                    <button id="btn-leave-room" class="btn-danger">Salir</button>
+                </div>
+            </div>
+            
+            <div class="teams-container">
+                <div class="team-box team-red" id="box-red" data-team="red">
+                    <h3>🔴 Red</h3>
+                    <ul id="list-red" class="player-list"></ul>
+                </div>
+                <div class="team-box team-spect" id="box-spect" data-team="spect">
+                    <h3>👁️ Spectators</h3>
+                    <ul id="list-spect" class="player-list"></ul>
+                </div>
+                <div class="team-box team-blue" id="box-blue" data-team="blue">
+                    <h3>🔵 Blue</h3>
+                    <ul id="list-blue" class="player-list"></ul>
+                </div>
+            </div>
+            <p style="text-align: center; color: #aaa; margin-top: 10px; font-size: 0.8rem;">Presiona <strong>ESC</strong> para ocultar/mostrar este menú durante el juego.</p>
+        </div>
+
+        <div class="game-header">
+            <div id="score">0 - 0</div>
+        </div>
+        <canvas id="gameCanvas" width="800" height="500"></canvas>
+    </div>
+
+    <div id="context-menu" class="hidden">
+        <ul>
+            <li id="cm-move-red">Mover a Red</li>
+            <li id="cm-move-spect">Mover a Spect</li>
+            <li id="cm-move-blue">Mover a Blue</li>
+            <hr>
+            <li id="cm-admin">Dar/Quitar Admin</li>
+            <li id="cm-kick" class="text-danger">Kickear</li>
+            <li id="cm-close">Cerrar Menú</li>
+        </ul>
+    </div>
+
+    <script type="module" src="game.js"></script>
+</body>
+</html>
